@@ -20,7 +20,7 @@ class algorithmServicePython(algorithmService):
         db = zxJDBC.connect(d, u, p, v)
 
         c = db.cursor()
-        c.execute("SELECT c.name AS Nombres,c.last_name AS Apellidos,c.dni as DNI, b.ritmo_cardiaco AS RC, b.fecha AS 'Fecha Registro', 'Normal' AS Transtorno, d.latitud,d.longitud,0 as ESTADO FROM [dbo].[mobile_patient] C LEFT JOIN [dbo].[ritmo_cardiaco] B ON C.id=B.patient_id LEFT JOIN ( SELECT * FROM (select ROW_NUMBER() OVER(PARTITION BY patient_id ORDER BY fecha desc) AS particion,latitud,longitud,patient_id,fecha  from [dbo].[ubicacion])AS A WHERE A.PARTICION=1) D ON D.patient_id=c.id WHERE  b.ritmo_cardiaco is not null and b.fecha not in (SELECT fecha_ritmo FROM [dbo].[emergency]) and b.fecha =(select min(fecha) from [dbo].[ritmo_cardiaco])FOR JSON PATH ")
+        c.execute("SELECT c.name AS Nombres,c.last_name AS Apellidos,c.dni as DNI, b.ritmo_cardiaco AS RC, b.fecha AS 'Fecha Registro', 'Normal' AS Transtorno, d.Latitud,d.Longitud,0 as Estado FROM [dbo].[mobile_patient] C LEFT JOIN [dbo].[ritmo_cardiaco] B ON C.id=B.patient_id LEFT JOIN ( SELECT * FROM (select ROW_NUMBER() OVER(PARTITION BY patient_id ORDER BY fecha desc) AS particion,latitud,longitud,patient_id,fecha  from [dbo].[ubicacion])AS A WHERE A.PARTICION=1) D ON D.patient_id=c.id WHERE  b.ritmo_cardiaco is not null and b.fecha not in (SELECT fecha_ritmo FROM [dbo].[emergency]) and b.fecha =(select min(fecha) from [dbo].[ritmo_cardiaco])FOR JSON PATH ")
 
         #print(c.fetchall())
 
@@ -45,17 +45,7 @@ class algorithmServicePython(algorithmService):
         data = {
             "Inputs": {
                 "input1":
-                    [{
-                            'Nombres': "Pepito",
-                            'Apellidos': "Quispe",
-                            'DNI': "70657000",
-                            'RC': "70",   
-                            'Fecha Registro': "27/05/2015",
-                            'Transtorno': "Bradicardia",
-                            'Latitud': '',
-                            'Longitud': '',
-                            'Estado': ''
-                    }]
+                    [res]
             },
             "GlobalParameters": {
             },
