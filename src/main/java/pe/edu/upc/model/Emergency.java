@@ -41,7 +41,7 @@ private static final long serialVersionUID = 1L;
 
 	@Column(name = "fecha_ritmo", nullable = false)
 	private Date fecha_ritmo;
-	
+
 	@Column(name = "transtorno", nullable = false)
 	private String Transtorno;
 	@Column(name = "nombres", nullable = false)
@@ -50,126 +50,68 @@ private static final long serialVersionUID = 1L;
 	private String Apellidos;
 	@Column(name = "DNI", nullable = false)
 	private String DNI;
-	
-	
-	
-	
-	public String getDNI() {
-		return DNI;
-	}
-
-
-	public void setDNI(String dNI) {
-		DNI = dNI;
-	}
-
-
-	public String getTranstorno() {
-		return Transtorno;
-	}
-
-
-	public void setTranstorno(String transtorno) {
-		Transtorno = transtorno;
-	}
-
-
-	public String getNombres() {
-		return Nombres;
-	}
-
-
-	public void setNombres(String nombres) {
-		Nombres = nombres;
-	}
-
-
-	public String getApellidos() {
-		return Apellidos;
-	}
-
-
-	public void setApellidos(String apellidos) {
-		Apellidos = apellidos;
-	}
-
-
-	public Date getFecha_ritmo() {
-		return fecha_ritmo;
-	}
-
-
-	public void setFecha_ritmo(Date fecha_ritmo) {
-		this.fecha_ritmo = fecha_ritmo;
-	}
-
-
-//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	//@JoinColumn(name = "patient_id", nullable = false)
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@JsonIgnore
-	//private MovPatient patient;
-
-
 	public int getId() {
 		return id;
 	}
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 	public int getState() {
 		return state;
 	}
-
-
 	public void setState(int state) {
 		this.state = state;
 	}
-
-
 	public int getHeartRate() {
 		return heartRate;
 	}
-
-
 	public void setHeartRate(int heartRate) {
 		this.heartRate = heartRate;
 	}
-
-
 	public String getLength() {
 		return length;
 	}
-
-
 	public void setLength(String length) {
 		this.length = length;
 	}
-
-
 	public String getLatitude() {
 		return latitude;
 	}
-
-
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-
-
-	/*public MovPatient getPatient() {
-		return patient;
+	public Date getFecha_ritmo() {
+		return fecha_ritmo;
 	}
-
-
-	public void setPatient(MovPatient patient) {
-		this.patient = patient;
-	}*/
+	public void setFecha_ritmo(Date fecha_ritmo) {
+		this.fecha_ritmo = fecha_ritmo;
+	}
+	public String getTranstorno() {
+		return Transtorno;
+	}
+	public void setTranstorno(String transtorno) {
+		Transtorno = transtorno;
+	}
+	public String getNombres() {
+		return Nombres;
+	}
+	public void setNombres(String nombres) {
+		Nombres = nombres;
+	}
+	public String getApellidos() {
+		return Apellidos;
+	}
+	public void setApellidos(String apellidos) {
+		Apellidos = apellidos;
+	}
+	public String getDNI() {
+		return DNI;
+	}
+	public void setDNI(String dNI) {
+		DNI = dNI;
+	}
 	
+
 	
 	
 }
