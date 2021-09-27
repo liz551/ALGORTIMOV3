@@ -1,6 +1,7 @@
 package pe.edu.upc.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,18 @@ private static final long serialVersionUID = 1L;
 	@NotNull
 	@Column(name = "latitude", nullable = false)
 	private String latitude;
+
+	@Column(name = "fecha_ritmo", nullable = false)
+	private Date fecha_ritmo;
+	
+	public Date getFecha_ritmo() {
+		return fecha_ritmo;
+	}
+
+
+	public void setFecha_ritmo(Date fecha_ritmo) {
+		this.fecha_ritmo = fecha_ritmo;
+	}
 
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

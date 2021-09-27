@@ -2,6 +2,8 @@ package pe.edu.upc.resource;
 
 import lombok.Data;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +15,16 @@ public class EmergencyResource {
     private int heartRate;
     private String length;
     private String latitude;
+ 
+	private Date fecha_ritmo;
+	
+	
+	public Date getFecha_ritmo() {
+		return fecha_ritmo;
+	}
+	public void setFecha_ritmo(Date fecha_ritmo) {
+		this.fecha_ritmo = fecha_ritmo;
+	}
 	public int getId() {
 		return id;
 	}

@@ -30,6 +30,7 @@ public class EmergencyServiceImpl implements EmergencyService {
             if(user.getRitmoCardiaco().getRitmoCardiaco() > 100){
                 em.setState(0);
                 em.setPatient(user);
+                em.setFecha_ritmo(user.getRitmoCardiaco().getFecha());
                 em.setHeartRate(user.getRitmoCardiaco().getRitmoCardiaco());
                 em.setLatitude(user.getUbicacion().getLatitud());
                 em.setLength(user.getUbicacion().getLongitud());
