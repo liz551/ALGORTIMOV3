@@ -7,7 +7,6 @@ import json
 
 from com.ziclix.python.sql import zxJDBC
 from pe.edu.upc.algorithm import algorithmService
-from pe.edu.upc.repository import EmergencyRepository;
 from pe.edu.upc.repository import MovPatientRepository;
 
 
@@ -78,7 +77,6 @@ class algorithmServicePython(algorithmService):
             return ('Ritmo Cardiaco: {}\nResultado: {}'.format(output["RC"],
                                                                            output["Scored Labels"]))
        
-
 
         except urllib2.HTTPError as error:
             print("The request failed with status code: " + str(error.code))

@@ -42,6 +42,58 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "fecha_ritmo", nullable = false)
 	private Date fecha_ritmo;
 	
+	@Column(name = "transtorno", nullable = false)
+	private String Transtorno;
+	@Column(name = "nombres", nullable = false)
+	private String Nombres;
+	@Column(name = "apellidos", nullable = false)
+	private String Apellidos;
+	@Column(name = "DNI", nullable = false)
+	private String DNI;
+	
+	
+	
+	
+	public String getDNI() {
+		return DNI;
+	}
+
+
+	public void setDNI(String dNI) {
+		DNI = dNI;
+	}
+
+
+	public String getTranstorno() {
+		return Transtorno;
+	}
+
+
+	public void setTranstorno(String transtorno) {
+		Transtorno = transtorno;
+	}
+
+
+	public String getNombres() {
+		return Nombres;
+	}
+
+
+	public void setNombres(String nombres) {
+		Nombres = nombres;
+	}
+
+
+	public String getApellidos() {
+		return Apellidos;
+	}
+
+
+	public void setApellidos(String apellidos) {
+		Apellidos = apellidos;
+	}
+
+
 	public Date getFecha_ritmo() {
 		return fecha_ritmo;
 	}
@@ -52,11 +104,11 @@ private static final long serialVersionUID = 1L;
 	}
 
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "patient_id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private MovPatient patient;
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	//@JoinColumn(name = "patient_id", nullable = false)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonIgnore
+	//private MovPatient patient;
 
 
 	public int getId() {
@@ -109,14 +161,14 @@ private static final long serialVersionUID = 1L;
 	}
 
 
-	public MovPatient getPatient() {
+	/*public MovPatient getPatient() {
 		return patient;
 	}
 
 
 	public void setPatient(MovPatient patient) {
 		this.patient = patient;
-	}
+	}*/
 	
 	
 	
