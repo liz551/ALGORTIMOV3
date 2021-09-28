@@ -3,10 +3,11 @@ import json
 import os
 import ssl
 import sys
-
+import json
+from datetime import date, datetime
+from dbexts import dbexts
 from com.ziclix.python.sql import zxJDBC
 from pe.edu.upc.algorithm import algorithmService
-from pe.edu.upc.repository import EmergencyRepository;
 from pe.edu.upc.repository import MovPatientRepository;
 
 
@@ -16,64 +17,79 @@ class algorithmServicePython(algorithmService):
 
     def getalgorithm(self):
         self.value = "Hola"
+
+        #for length
         d, u, p, v = "jdbc:sqlserver://monitoreoadmin.database.windows.net:1433;database=tp2", "monitoreoadmin", "Admin123","com.mysql.cj.jdbc.Driver"
         db = zxJDBC.connect(d, u, p, v)
 
         c = db.cursor()
-        c.execute("SELECT 101246 AS HC,c.name AS Nombres,c.last_name AS Apellidos,c.dni as DNI, b.ritmo_cardiaco AS RC, b.fecha AS 'Fecha Registro', 'Normal' AS Transtorno FROM [dbo].[mobile_patient] C LEFT JOIN [dbo].[ritmo_cardiaco] B ON C.id=B.patient_id WHERE b.ritmo_cardiaco is not null FOR JSON PATH")
+        c2=db.cursor()
 
-        #print(c.fetchall())
-
-        #for usuario in usuarios:
-        #    print usuario
-
-        #json_output = []
-        #for a in c.fetchall():
-        #    print a
+        #execute para return de todos los pacientes
+        c2.execute("SELECT c.name AS Nombres,c.last_name AS Apellidos,c.dni as DNI, b.ritmo_cardiaco AS RC, b.fecha AS 'Fecha Registro', 'Normal' AS Transtorno, d.Latitud,d.Longitud,0 as Estado FROM [dbo].[mobile_patient] C LEFT JOIN [dbo].[ritmo_cardiaco] B ON C.id=B.patient_id LEFT JOIN ( SELECT * FROM (select ROW_NUMBER() OVER(PARTITION BY patient_id ORDER BY fecha desc) AS particion,latitud,longitud,patient_id,fecha  from [dbo].[ubicacion])AS A WHERE A.PARTICION=1) D ON D.patient_id=c.id WHERE  b.ritmo_cardiaco is not null ")
 
 
-            #json_output.append(a)
+        xlist=[]
+        for x in c2.fetchall():
+            xlist.append(x)
 
-        #jsonx= str.encode(json.dumps(json_output,indent=4, sort_keys=True, default=str))
-        #print(json_output)
-        #print(json_output)
-        #print c.description
-        d = eval(json.dumps(c.fetchall()))
-        res=str(d)[3:-3]
-        print res
-        data = {
-            "Inputs": {
-                "WebServiceInput0":
-                        res
-            },
-            "GlobalParameters": {
-            },
-        }
+        xlistlength= len(xlist)
 
-        body = str.encode(json.dumps(data))
-        url = 'http://52.161.13.55:80/api/v1/service/deployalgoritmopredictivo/score'
-        api_key = '0TaiUUA1zttG3wu5HesF6DglOuSDOVLe'  # Replace this with the API key for the web service
-        headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
+        #execute para return de 1 paciente
 
-        req = urllib2.Request(url, body, headers)
+        for k in range (xlistlength):
+            c.execute("SELECT c.name AS Nombres,c.last_name AS Apellidos,c.dni as DNI, b.ritmo_cardiaco AS RC, b.fecha AS 'Fecha Registro', 'Normal' AS Transtorno, d.Latitud,d.Longitud,0 as Estado FROM [dbo].[mobile_patient] C LEFT JOIN [dbo].[ritmo_cardiaco] B ON C.id=B.patient_id LEFT JOIN ( SELECT * FROM (select ROW_NUMBER() OVER(PARTITION BY patient_id ORDER BY fecha desc) AS particion,latitud,longitud,patient_id,fecha  from [dbo].[ubicacion])AS A WHERE A.PARTICION=1) D ON D.patient_id=c.id WHERE  b.ritmo_cardiaco is not null and b.fecha not in (SELECT fecha_ritmo FROM [dbo].[emergency]) and b.fecha =(select min(fecha) from [dbo].[ritmo_cardiaco])FOR JSON PATH ")
+            d = eval(json.dumps(c.fetchall()))
+            d=str(d)[4:-4]
+            res = json.loads(d)
+            #print res
+            data = {
+                "Inputs": {
+                    "input1":
+                        [res]
+                },
+                "GlobalParameters": {
+                },
+            }
 
-        try:
-            response = urllib2.urlopen(req)
+            body = str.encode(json.dumps(data))
+            url = 'https://ussouthcentral.services.azureml.net/workspaces/01de9b04f39d4265ad34f3c605c37538/services/4c9a43648eac4ac58482476e911b1ada/execute?api-version=2.0&format=swagger'
+            api_key = '3CK3BNfpvL5W7NBnpE8Y3bmVJfTEj9eSMFLX3jpYSaYLeFP8J8yIpDyqG9/nDbibRjkztLucW5sE6cPBsiALYw=='  # Replace this with the API key for the web service
+            headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
+            req = urllib2.Request(url, body, headers)
+            try:
+                response = urllib2.urlopen(req)
+                result = response.read()
+                json_result = json.loads(result)
+                output = json_result["Results"]["output1"][0]
+                print ('Ritmo Cardiaco: {}\nResultado: {}'.format(output["RC"],
+                                                                            output["Scored Labels"]))
+                #c3=db.cursor()
+#                 ap=res['Apellidos']
+#                 dn=res['DNI']
+#                 no=res['Nombres']
+#                 ou=output['Scored Labels']
+#                 fr=res['Fecha Registro']
+#                 rc=res['RC']
+#                 la=res['Latitud']
+#                 lo=res['Longitud']
+                #sql= "INSERT INTO dbo.emergency (apellidos, dni, nombres, transtorno, fecha_ritmo, heart_rate, latitude, lenght) VALUES (%s, %s,%s, %s,%s, %s,%s, %s)"
+                #val= (res['Apellidos'], res['DNI'], res['Nombres'], output['Scored Labels'], res['Fecha Registro'], res['RC'], res['Latitud'], res['Longitud'])
+                #c3.execute(sql,val)
+                #db.commit()
+                #smt = "insert into dbo.emergency values (?,?,?,?,?,?,?,?,?)"
 
-            result = response.read()
-            json_result = json.loads(result)
-            #for
-            output = json_result["Results"]["WebServiceOutput0"][0]
-            return('Paciente: {}\nRitmo Cardiaco: {}\nResultado: {}'.format(output["HC"], output["RC"],
-                                                                           output["Scored Labels"]))
+                #result = c3.executemany(smt,[1,'Lopez',78496785,'Juan','Normal', 0,100,1,1])
+                #c3.execute("insert into dbo.emergency (apellidos, dni, nombres, transtorno, fecha_ritmo, heart_rate) values (Lopez,78496785,Juan,Normal,12/10/21,100)")
 
-        except urllib2.HTTPError as error:
-            print("The request failed with status code: " + str(error.code))
 
-            # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
-            print(error.info())
-            print(json.loads(error.read().decode("utf8", 'ignore')))
-            return self.value
+            except urllib2.HTTPError as error:
+                print("The request failed with status code: " + str(error.code))
+
+                # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
+                print(error.info())
+                print(json.loads(error.read()))
+
 
 
 

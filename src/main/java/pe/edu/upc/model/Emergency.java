@@ -40,7 +40,7 @@ private static final long serialVersionUID = 1L;
 	private String latitude;
 
 	@Column(name = "fecha_ritmo", nullable = false)
-	private Date fecha_ritmo;
+	private String fecha_ritmo;
 
 	@Column(name = "transtorno", nullable = false)
 	private String Transtorno;
@@ -80,10 +80,10 @@ private static final long serialVersionUID = 1L;
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	public Date getFecha_ritmo() {
+	public String getFecha_ritmo() {
 		return fecha_ritmo;
 	}
-	public void setFecha_ritmo(Date fecha_ritmo) {
+	public void setFecha_ritmo(String fecha_ritmo) {
 		this.fecha_ritmo = fecha_ritmo;
 	}
 	public String getTranstorno() {
