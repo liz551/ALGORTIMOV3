@@ -107,10 +107,10 @@
                     <tbody>
                     <tr th:each="rac: ${emergencies}">
                         <td th:text="${rac.id}"></td>
-                        <td th:text="${rac.patient.name}"></td>
-                        <td th:text="${rac.patient.lastName}"></td>
-                        <td th:text="${rac.patient.dni}"></td>
-                        <td th:text="${rac.heartRate}"></td>
+                        <td th:text="${rac.nombres}"></td>
+                        <td th:text="${rac.apellidos}"></td>
+                        <td th:text="${rac.DNI}"></td>                    
+                     <td th:text="${rac.heartRate}"></td>
                     </tr>
                     </tbody>
                 </table>

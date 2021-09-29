@@ -94,6 +94,7 @@
                         <th class="text-center">DNI</th>
                         <th class="text-center">FECHA</th>
                         <th class="text-center">RITMO CARDIACO</th>
+                        <th class="text-center">TRANSTORNO</th>
                         <th class="text-center">UBICACION</th>
                            <th class="text-center">OPERACION</th>
                     </tr>
@@ -101,13 +102,15 @@
                     <tbody>
                     <tr th:each="rac: ${emergencies}">
                         <td th:text="${rac.id}"></td>
-                        <td th:text="${rac.patient.name}"></td>
-                        <td th:text="${rac.patient.lastName}"></td>
-                        <td th:text="${rac.patient.dni}"></td>
-                        <td th:text="${rac.patient.ritmoCardiaco.fecha}"></td>
-                        <td th:text="${rac.heartRate}"></td>
-                        <td><a th:href="@{'/patient/detalle/' + ${rac.id}}"><p> Detalle <span></span></p> </a></td>
-                        <td><a th:href="@{'/patient/modificar/' + ${rac.id}}"><p> Marcar como atendido <span class="glyphicon glyphicon-edit"></span></p> </a></td>
+                        <td th:text="${rac.nombres}"></td>
+                        <td th:text="${rac.apellidos}"></td>
+                        <td th:text="${rac.DNI}"></td>
+                        <td th:text="${rac.fecha_ritmo}"></td>
+                     <td th:text="${rac.heartRate}"></td>
+                     <td th:text="${rac.transtorno}"></td>
+                      <td><a th:href="@{'/patient/detalle/' + ${rac.id}}"><p> Detalle <span></span></p> </a></td>
+                        <td><a th:href="@{'/patient/modificar/' + ${rac.id}}"
+                         onclick="return confirm('¿Se le brindó una asistencia al paciente?');"><p> Marcar como atendido <span class="glyphicon glyphicon-edit"></span></p> </a></td>
                     </tr>
                     </tbody>
                 </table>

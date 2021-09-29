@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import pe.edu.upc.model.Emergency;
 import pe.edu.upc.model.Paciente;
 import pe.edu.upc.service.IPacienteService;
 
@@ -172,24 +173,17 @@ public class PacienteController {
 		gService.listarId(paciente.getIdPaciente());
 		return "listPaciente";		
 	}
-	@RequestMapping("/buscar")
-	public String buscar(Map<String, Object> model, @ModelAttribute Paciente paciente) throws ParseException {
-		List<Paciente> listaPacientes;
-		paciente.setNombrePaciente(paciente.getNroDocumento());
-		listaPacientes = gService.buscarPaciente(paciente.getNroDocumento());
-		
-		if (listaPacientes.isEmpty()) {
-			model.put("mensaje", "No se encontro");						
-		}
-		model.put("listaPacientes", listaPacientes);
-		return "buscarPaciente";	
-		
-	}
-	
-	@RequestMapping("/irBuscar")
-	public String irBuscar(Model model) {
-		model.addAttribute("paciente", new Paciente());
-		return "buscarPaciente";
-	}
+	 @RequestMapping("/buscar")
+	    public String historial(Model model, String keyword) {
+	        List<Paciente> listaPacientes = gService.listar();
+
+	        if(keyword != null){
+	            model.addAttribute("listaPacientes", gService.buscarPaciente(keyword));
+	        }else
+	            model.addAttribute("listaPacientes", listaPacientes);
+
+	        return "listPaciente";
+	    }
+
 
 }

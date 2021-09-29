@@ -21,24 +21,24 @@ private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idPaciente;
 	@NotBlank(message="No puede estar en blanco")
-	@NotEmpty(message="No puede estar vacio")
+	@NotEmpty(message="No puede estar vacío")
 	@Column(name = "nombrePaciente", length = 15, nullable = false)
 	private String nombrePaciente;
 	@NotBlank(message="No puede estar en blanco")
-	@NotEmpty(message="No puede estar vacio")
+	@NotEmpty(message="No puede estar vacío")
 	@Column(name = "apellidoPaciente", length = 15, nullable = false)
 	private String apellidoPaciente;
 	@NotBlank(message="No puede estar en blanco")
-	@NotEmpty(message="No puede estar vacio")
+	@NotEmpty(message="No puede estar vacío")
 	@Column(name = "tipoDocumento", length = 15, nullable = false)
 	private String tipoDocumento;
 	@NotBlank(message="No puede estar en blanco")
-	@NotEmpty(message="No puede estar vacio")
+	@NotEmpty(message="No puede estar vacío")
 	@Pattern(regexp="[0-9]{8,12}", message="DNI: Solo se permite 7 dígitos numéricos, Otros: Solo se permite 12 dígitos numéricos ")
 	@Column(name = "nroDocumento", length = 12, nullable = false)
 	private String nroDocumento;
 	@NotBlank(message="No puede estar en blanco")
-	@NotEmpty(message="No puede estar vacio")
+	@NotEmpty(message="No puede estar vacío")
 	@Column(name = "celular", nullable = false)
 	@Pattern(regexp="[0-9]{9}", message="Solo se permite 9 valores númericos ")
 	private String nrocelular;
