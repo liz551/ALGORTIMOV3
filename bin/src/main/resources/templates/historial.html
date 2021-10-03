@@ -85,6 +85,7 @@
                 <form th:action="@{/patient/historial}" method="get">
                     <input id="txtSearch" type="text" name="keyword" placeholder="Buscar solo por DNI">
                     <button type="submit">Buscar</button>
+                    <br></br>
                 </form>
                 <table class="table table-bordered table-hover table-striped"
                        id="tab_logic">
@@ -96,16 +97,19 @@
                         <th class="text-center">DNI</th>
                         <th class="text-center">FECHA</th>
                         <th class="text-center">RITMO CARDIACO</th>
+                        <th class="text-center">TRANSTORNO</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="rac: ${emergencies}">
+                   
                         <td th:text="${rac.id}"></td>
-                        <td th:text="${rac.patient.name}"></td>
-                        <td th:text="${rac.patient.lastName}"></td>
-                        <td th:text="${rac.patient.dni}"></td>
-                        <td th:text="${rac.patient.ritmoCardiaco.fecha}"></td>
-                        <td th:text="${rac.heartRate}"></td>
+                        <td th:text="${rac.nombres}"></td>
+                        <td th:text="${rac.apellidos}"></td>
+                        <td th:text="${rac.DNI}"></td>
+                        <td th:text="${rac.fecha_ritmo}"></td>
+                     <td th:text="${rac.heartRate}"></td>
+                       <td th:text="${rac.transtorno}"></td>
                     </tr>
                     </tbody>
                 </table>

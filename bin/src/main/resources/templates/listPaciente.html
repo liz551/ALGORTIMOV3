@@ -81,12 +81,12 @@
 		<form id="myform">
 			<div class="row clearfix">
 				<div class="col-md-12 column" >
-					
-					<p>
-					</p>
-					<div th:if= "${success eq true}" class="alert alert-success">Registro aceptado</div>
+				<div th:if= "${success eq true}" class="alert alert-success">Registro aceptado</div>
 		            <div th:if= "${info eq true}" class="alert alert-info">Registro actualizado</div>
 		            <div th:if= "${warning eq true}" class="alert alert-warning">Registro eliminado</div>
+		            
+				 
+
 					<table class="table table-bordered table-hover table-striped"
 						id="tab_logic">
 						<thead>
@@ -109,7 +109,8 @@
 								<td th:text="${rac.tipoDocumento}"></td>
 								<td th:text="${rac.nroDocumento}"></td>
 								<td th:text="${rac.nrocelular}"></td>
-								<td><a th:href="@{/paciente/eliminar?id=}+${rac.idPaciente}"><p> Eliminar <span class="glyphicon glyphicon-trash"></span></p></a></td>
+								<td><a th:href="@{/paciente/eliminar?id=}+${rac.idPaciente}"
+								onclick="return confirm('¿Estas seguro de eliminar el registro?');"><p> Eliminar <span class="glyphicon glyphicon-trash"></span></p></a></td>
 								<td><a th:href="@{'/paciente/modificar/' + ${rac.idPaciente}}"><p> Modificar <span class="glyphicon glyphicon-edit"></span></p> </a></td>
 							</tr>
 						</tbody>

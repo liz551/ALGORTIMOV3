@@ -13,7 +13,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TP2-V2</name>
 	<description>Demo project for Spring Boot</description>
-	<packaging>war</packaging>
 	<properties>
 		<java.version>11</java.version>
     		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -37,10 +36,10 @@
 		</dependency>
 					<!-- https://mvnrepository.com/artifact/org.python/jython -->
 		<dependency>
-    		<groupId>org.python</groupId>
-    		<artifactId>jython</artifactId>
-    		<version>2.7.2</version>
-		</dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython-standalone</artifactId>
+            <version>2.7.2</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -104,6 +103,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                    <requiresUnpack>
+                        <dependency>
+                            <groupId>org.python</groupId>
+                            <artifactId>jython-standalone</artifactId>
+                        </dependency>
+                    </requiresUnpack>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>

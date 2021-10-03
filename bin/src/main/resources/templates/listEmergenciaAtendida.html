@@ -94,16 +94,19 @@
                         <th class="text-center">DNI</th>
                         <th class="text-center">FECHA</th>
                         <th class="text-center">RITMO CARDIACO</th>
+                        <th class="text-center">TRANSTORNO</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="rac: ${emergenciesAtt}">
                         <td th:text="${rac.id}"></td>
-                        <td th:text="${rac.patient.name}"></td>
-                        <td th:text="${rac.patient.lastName}"></td>
-                        <td th:text="${rac.patient.dni}"></td>
-                        <td th:text="${rac.patient.ritmoCardiaco.fecha}"></td>
-                        <td th:text="${rac.heartRate}"></td>
+                        <td th:text="${rac.nombres}"></td>
+                        <td th:text="${rac.apellidos}"></td>
+                        <td th:text="${rac.DNI}"></td>
+                        <td th:text="${rac.fecha_ritmo}"></td>
+                     <td th:text="${rac.heartRate}"></td>
+                       <td th:text="${rac.transtorno}"></td>
+                    
 
                     </tr>
                     </tbody>

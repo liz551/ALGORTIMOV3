@@ -107,7 +107,8 @@ header label {
 					<td th:text="${user.lastName}">Last Name</td>
 					<td th:text="${user.roles}">Roles</td>
 					<td><a th:href="@{'/users/edit/' + ${user.id}}">Modificar<span class="glyphicon glyphicon-edit"></span></p> </a></td>
-				<td><a th:href="@{/users/eliminar?id=}+${user.id}"><p> Eliminar <span class="glyphicon glyphicon-trash"></span></p></a></td>
+				<td><a th:href="@{/users/eliminar?id=}+${user.id}"
+				onclick="return confirm('¿Estas seguro de eliminar el registro?');"><p> Eliminar <span class="glyphicon glyphicon-trash"></span></p></a></td>
 				</tr>
 			</tbody>
 						

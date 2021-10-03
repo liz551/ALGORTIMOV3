@@ -14,9 +14,9 @@ public class algorithmController {
 	@Qualifier("algorithmServicePython")
 	private algorithmService service;
 
-	@RequestMapping("/**")
-	public String index() {
-		return service.getalgorithm();
-	}
+	//@RequestMapping("/**")
+	//public String index() {
+		//return service.getalgorithm();
+	//}
 
 }
